@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.12.1 on win32)" generated="20240407 17:08:33.071" rpa="false" schemaversion="4">
+<suite id="s1" name="Testcases Api" source="C:\Teste_CRUD_Claudia Lopes\testcases_api.robot">
+<test id="s1-t1" name="Test 1 - CREATE/READ/UPDATE/DELETE user" line="6">
+<kw name="Test CREATE/READ/UPDATE/DELETE user" library="test_api">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=ServeRest</arg>
+<arg>url=https://serverest.dev/</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20240407 17:08:33.239" level="INFO">Creating Session using : alias=ServeRest, url=https://serverest.dev/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20240407 17:08:33.239" endtime="20240407 17:08:33.239"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${header}</var>
+<arg>accept=application/json</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240407 17:08:33.239" level="INFO">${header} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20240407 17:08:33.239" endtime="20240407 17:08:33.239"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=ServeRest</arg>
+<arg>url=/usuarios</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome":"Jaime Lopes", "email":"jaime.lopes1981@gmail.com","password":"Jaime_2000","administrador":"true"}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20240407 17:08:33.482" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '106'} 
+ body={"nome":"Jaime Lopes", "email":"jaime.lopes1981@gmail.com","password":"Jaime_2000","administrador":"true"} 
+ </msg>
+<msg timestamp="20240407 17:08:33.482" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '12a0a7f64326cee0fe90b34824a5e423;o=1', 'Date': 'Sun, 07 Apr 2024 16:08:34 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "WFdwa8ca7vupOc1S"
+} 
+ </msg>
+<msg timestamp="20240407 17:08:33.482" level="INFO">C:\Users\35191\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240407 17:08:33.484" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20240407 17:08:33.239" endtime="20240407 17:08:33.484"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${user_id}</var>
+<arg>${response.json()['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240407 17:08:33.485" level="INFO">${user_id} = WFdwa8ca7vupOc1S</msg>
+<status status="PASS" starttime="20240407 17:08:33.484" endtime="20240407 17:08:33.485"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${user_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20240407 17:08:33.485" endtime="20240407 17:08:33.486"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=ServeRest</arg>
+<arg>url=/usuarios/${user_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20240407 17:08:33.644" level="INFO">GET Request : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ path_url=/usuarios/WFdwa8ca7vupOc1S 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20240407 17:08:33.644" level="INFO">GET Response : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'ede35b4be0ab2d030c6055c573b06d30', 'Date': 'Sun, 07 Apr 2024 16:08:34 GMT', 'Server': 'Google Frontend', 'Content-Length': '161'} 
+ body={
+    "nome": "Jaime Lopes",
+    "email": "jaime.lopes1981@gmail.com",
+    "password": "Jaime_2000",
+    "administrador": "true",
+    "_id": "WFdwa8ca7vupOc1S"
+} 
+ </msg>
+<msg timestamp="20240407 17:08:33.644" level="INFO">C:\Users\35191\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240407 17:08:33.646" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240407 17:08:33.486" endtime="20240407 17:08:33.646"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${return_get}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240407 17:08:33.647" level="INFO">${return_get} = {'nome': 'Jaime Lopes', 'email': 'jaime.lopes1981@gmail.com', 'password': 'Jaime_2000', 'administrador': 'true', '_id': 'WFdwa8ca7vupOc1S'}</msg>
+<status status="PASS" starttime="20240407 17:08:33.646" endtime="20240407 17:08:33.647"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${return_get}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20240407 17:08:33.647" endtime="20240407 17:08:33.648"/>
+</kw>
+<kw name="PUT On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=ServeRest</arg>
+<arg>url=/usuarios/${user_id}</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome":"Jaime Almeida", "email":"jaime.ingles2008@gmail.com","password":"Jaime_2008","administrador":"true"}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<msg timestamp="20240407 17:08:33.810" level="INFO">PUT Request : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ path_url=/usuarios/WFdwa8ca7vupOc1S 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body={"nome":"Jaime Almeida", "email":"jaime.ingles2008@gmail.com","password":"Jaime_2008","administrador":"true"} 
+ </msg>
+<msg timestamp="20240407 17:08:33.810" level="INFO">PUT Response : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '5bac3045197e8dbe211fd550d61f5b54', 'Date': 'Sun, 07 Apr 2024 16:08:35 GMT', 'Server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg timestamp="20240407 17:08:33.811" level="INFO">C:\Users\35191\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240407 17:08:33.811" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240407 17:08:33.649" endtime="20240407 17:08:33.811"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${return_put}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240407 17:08:33.813" level="INFO">${return_put} = {'message': 'Registro alterado com sucesso'}</msg>
+<status status="PASS" starttime="20240407 17:08:33.811" endtime="20240407 17:08:33.813"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${return_put}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20240407 17:08:33.814" endtime="20240407 17:08:33.815"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=ServeRest</arg>
+<arg>url=/usuarios/${user_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20240407 17:08:33.975" level="INFO">GET Request : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ path_url=/usuarios/WFdwa8ca7vupOc1S 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20240407 17:08:33.975" level="INFO">GET Response : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '63d21a970184cd0fb59806aeeb4b1651', 'Date': 'Sun, 07 Apr 2024 16:08:35 GMT', 'Server': 'Google Frontend', 'Content-Length': '164'} 
+ body={
+    "nome": "Jaime Almeida",
+    "email": "jaime.ingles2008@gmail.com",
+    "password": "Jaime_2008",
+    "administrador": "true",
+    "_id": "WFdwa8ca7vupOc1S"
+} 
+ </msg>
+<msg timestamp="20240407 17:08:33.975" level="INFO">C:\Users\35191\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20240407 17:08:33.976" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20240407 17:08:33.815" endtime="20240407 17:08:33.977"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${return_get}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20240407 17:08:33.977" level="INFO">${return_get} = {'nome': 'Jaime Almeida', 'email': 'jaime.ingles2008@gmail.com', 'password': 'Jaime_2008', 'administrador': 'true', '_id': 'WFdwa8ca7vupOc1S'}</msg>
+<status status="PASS" starttime="20240407 17:08:33.977" endtime="20240407 17:08:33.978"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${return_get}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20240407 17:08:33.978" endtime="20240407 17:08:33.979"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<arg>alias=ServeRest</arg>
+<arg>url=/usuarios/${user_id}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20240407 17:08:34.138" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ path_url=/usuarios/WFdwa8ca7vupOc1S 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20240407 17:08:34.138" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/WFdwa8ca7vupOc1S 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'a047cd039db2aaebb50b6bba35bc58c2', 'Date': 'Sun, 07 Apr 2024 16:08:35 GMT', 'Server': 'Google Frontend', 'Content-Length': '51'} 
+ body={
+    "message": "Registro excluído com sucesso"
+} 
+ </msg>
+<msg timestamp="20240407 17:08:34.138" level="INFO">C:\Users\35191\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<status status="PASS" starttime="20240407 17:08:33.979" endtime="20240407 17:08:34.140"/>
+</kw>
+<kw name="Delete All Sessions" library="RequestsLibrary">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20240407 17:08:34.141" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20240407 17:08:34.141" endtime="20240407 17:08:34.141"/>
+</kw>
+<status status="PASS" starttime="20240407 17:08:33.238" endtime="20240407 17:08:34.141"/>
+</kw>
+<status status="PASS" starttime="20240407 17:08:33.238" endtime="20240407 17:08:34.142"/>
+</test>
+<status status="PASS" starttime="20240407 17:08:33.071" endtime="20240407 17:08:34.146"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Testcases Api">Testcases Api</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
